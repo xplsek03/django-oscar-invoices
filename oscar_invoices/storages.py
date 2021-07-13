@@ -1,18 +1,20 @@
-from django.core.files.storage import FileSystemStorage
+#from django.core.files.storage import FileSystemStorage
 from django.utils.deconstruct import deconstructible
 from django.utils.functional import cached_property
 
 from . import app_settings
 
+from mikeapps.storage.backend_storage import PrivateMediaStorage
+
 
 @deconstructible
-class DocumentsStorage(FileSystemStorage):
+class DocumentsStorage(PrivateMediaStorage):
     """
     Custom filesystem storage for storing documents outside of media directory
     (destination folder - `settings.OSCAR_INVOICES_DOCUMENT_ROOT`) and
     restricting their public access via URL.
     """
-
+    '''
     def __init__(self, *args, **kwargs):
         super(DocumentsStorage, self).__init__(*args, **kwargs)
         self._location = app_settings.OSCAR_INVOICES_DOCUMENTS_ROOT
@@ -34,3 +36,4 @@ class DocumentsStorage(FileSystemStorage):
 
     def url(self, name):
         raise ValueError("This file is not accessible via a URL.")
+    '''
