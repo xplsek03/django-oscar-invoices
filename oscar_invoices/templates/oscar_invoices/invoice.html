@@ -10,7 +10,7 @@
 
     <style>
         body {
-            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            font-family: Verdana, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
             text-align: center;
             color: #777;
         }
@@ -20,6 +20,7 @@
             margin-bottom: 0px;
             padding-bottom: 0px;
             color: #000;
+            font-size: 15px;
         }
 
         body h3 {
@@ -32,14 +33,22 @@
         body a {
             color: #06F;
         }
+        
+        .topleft {
+            float: left;
+            width: 50%;
+        }
+        .topright {
+            float: right;
+            width: 50%;
+        }
 
         .invoice-box {
             max-width: 800px;
             margin: auto;
-            padding: 30px;
-            border: 1px solid #eee;
-            font-size: 16px;
-            line-height: 24px;
+            padding: 20px;
+            font-size: 13px;
+            line-height: 16px;
             color: #555;
         }
 
@@ -50,7 +59,7 @@
         }
 
         .invoice-box table td {
-            padding: 5px;
+            padding: 4px;
             vertical-align: top;
         }
 
@@ -58,28 +67,18 @@
             text-align: right;
         }
 
-        .invoice-box table tr.top table td {
-            padding-bottom: 20px;
-        }
-
         .invoice-box table tr.top table td.title {
-            font-size: 45px;
-            line-height: 45px;
             color: #333;
         }
 
         .invoice-box table tr.information table td {
-            padding-bottom: 40px;
+            padding-bottom: 5px;
         }
 
         .invoice-box table tr.heading td {
             background: #eee;
             border-bottom: 1px solid #ddd;
             font-weight: bold;
-        }
-
-        .invoice-box table tr.details td {
-            padding-bottom: 20px;
         }
 
         .invoice-box table tr.item td {
@@ -95,66 +94,67 @@
             font-weight: bold;
         }
 
-        tr.space-under > td {
-            padding-bottom: 2em;
-        }
-
         td.title img {
             width: 100%;
-            max-width: 200px;
+            max-width: 150px;
         }
+        
+        hr {
+            border-top: 1px solid #ddd;
+            margin: 10px auto;
+        }
+        
     </style>
 </head>
 
 <body>
     <div class="invoice-box">
-        <table cellpadding="0" cellspacing="0">
+
             {% block header %}
-                <tr class="top space-under">
-                    <td colspan="5" class="align-right">
+                    <div class="topright">
                         <h1>{% trans "Original invoice" %} #{{ invoice.number }}</h1><br>
                         {% trans "Order" %} #{{ order.number }}<br>
                         {% trans "Date" %}: {{ order.date_placed|date:'d.m.Y' }}<br>
-                    </td>
-                </tr>
+                    </div>
+                    
+                    <div class="topleft">
+                    
+                    {% block legal_entity %}
+                    
+                        {% if legal_entity.logo %}
+                            <img src="{% if use_path %}file://{{ legal_entity.logo.path }}{% else %}{{ legal_entity.logo.url }}{% endif %}">
+                        {% else %}
+                            {{ legal_entity.shop_name }}
+                        {% endif %}
+                        
+                        {{ legal_entity.business_name }}
+                        <br>
+                        {% trans "VAT ID" %}: {{ legal_entity.vat_number }}<br>
+                        <address>
+                            {{ legal_entity_address.summary }}<br/>
+                            {% if legal_entity_address.phone_number %}
+                                {% trans "Tel" %}: {{ legal_entity_address.phone_number }}<br/>
+                            {% endif %}
+                            {% if legal_entity_address.fax_number %}
+                                {% trans "Fax" %}: {{ legal_entity_address.fax_number }}<br/>
+                            {% endif %}
+                            {% if legal_entity_address.email %}
+                                {% trans "Email" %}: {{ legal_entity_address.email }}<br/>
+                            {% endif %}
+                            {% if legal_entity_address.web_site %}
+                                {% trans "Site" %}: {{ legal_entity_address.web_site }}<br/>
+                            {% endif %}
+                        </address>        
+                    
+                    {% endblock %}
+                    
+                    </div>
+
             {% endblock %}
 
-            {% block legal_entity %}
-                <tr class="top">
-                    <td colspan="5">
-                        <table>
-                            <tr>
-                                <td class="title">
-                                    {% if legal_entity.logo %}
-                                        <img src="{% if use_path %}file://{{ legal_entity.logo.path }}{% else %}{{ legal_entity.logo.url }}{% endif %}">
-                                    {% else %}
-                                        {{ legal_entity.shop_name }}
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {{ legal_entity.business_name }}<br>
-                                    {% trans "VAT ID" %}: {{ legal_entity.vat_number }}<br>
-                                    <address>
-                                        {{ legal_entity_address.summary }}<br/>
-                                        {% if legal_entity_address.phone_number %}
-                                            {% trans "Tel" %}: {{ legal_entity_address.phone_number }}<br/>
-                                        {% endif %}
-                                        {% if legal_entity_address.fax_number %}
-                                            {% trans "Fax" %}: {{ legal_entity_address.fax_number }}<br/>
-                                        {% endif %}
-                                        {% if legal_entity_address.email %}
-                                            {% trans "Email" %}: {{ legal_entity_address.email }}<br/>
-                                        {% endif %}
-                                        {% if legal_entity_address.web_site %}
-                                            {% trans "Site" %}: {{ legal_entity_address.web_site }}<br/>
-                                        {% endif %}
-                                    </address>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            {% endblock %}
+        <hr>
+
+        <table cellpadding="0" cellspacing="0">
 
             {% block addresses %}
                 <tr class="information">
