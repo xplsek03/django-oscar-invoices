@@ -24,7 +24,8 @@
         }
 
         body h3 {
-            font-weight: 300;
+            font-weight: bold;
+            font-size: 14px;
             margin-top: 10px;
             margin-bottom: 10px;
             color: #555;
@@ -49,8 +50,8 @@
             max-width: 800px;
             margin: auto;
             padding: 20px;
-            font-size: 13px;
-            line-height: 16px;
+            font-size: 11px;
+            line-height: 13px;
             color: #555;
         }
 
@@ -114,11 +115,6 @@
             <table cellpadding="0" cellspacing="0">
             {% block header %}
                     <tr>
-                    <td class="topright">
-                        <h1>{% trans "Original invoice" %} #{{ invoice.number }}</h1><br>
-                        {% trans "Order" %} #{{ order.number }}<br>
-                        {% trans "Date" %}: {{ order.date_placed|date:'d.m.Y' }}<br>
-                    </td>
                     
                     <td class="topleft">
                     
@@ -149,6 +145,12 @@
                             {% endif %}
                         </address>        
                         </td>
+ 
+                    <td class="topright">
+                        <h1>{% trans "Original invoice" %} #{{ invoice.number }}</h1><br>
+                        {% trans "Order" %} #{{ order.number }}<br>
+                        {% trans "Date" %}: {{ order.date_placed|date:'d.m.Y' }}<br>
+                    </td>
                         
                     </tr>
                     {% endblock %}
@@ -168,7 +170,7 @@
                         <table>
                             <tr>
                                 <td>
-                                    <h3>{% trans "Shipping address" %}:</h3>
+                                    <h3><strong>{% trans "Shipping address" %}:</strong></h3>
                                     <address>
                                         {% for field in order.shipping_address.active_address_fields %}
                                             {{ field }}<br/>
@@ -177,7 +179,7 @@
                                 </td>
                                 {% if order.billing_address %}
                                     <td>
-                                        <h3>{% trans "Billing address" %}:</h3>
+                                        <h3><strong>{% trans "Billing address" %}:</strong></h3>
                                         <address>
                                             {% for field in order.billing_address.active_address_fields %}
                                                 {{ field }}<br/>
