@@ -121,15 +121,16 @@
 
 <body>
     <div class="invoice-box">
-
+            <table cellpadding="0" cellspacing="0">
             {% block header %}
-                    <div class="topright">
+                    <tr>
+                    <td class="topright">
                         <h1>{% trans "Original invoice" %} #{{ invoice.number }}</h1><br>
                         {% trans "Order" %} #{{ order.number }}<br>
                         {% trans "Date" %}: {{ order.date_placed|date:'d.m.Y' }}<br>
-                    </div>
+                    </td>
                     
-                    <div class="topleft">
+                    <td class="topleft">
                     
                     {% block legal_entity %}
                     
@@ -157,12 +158,15 @@
                                 {% trans "Site" %}: {{ legal_entity_address.web_site }}<br/>
                             {% endif %}
                         </address>        
-                    
+                        </td>
+                        
+                    </tr>
                     {% endblock %}
                     
-                    </div>
+                 
 
             {% endblock %}
+            </table>
 
         <hr>
 
