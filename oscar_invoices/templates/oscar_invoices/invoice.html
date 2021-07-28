@@ -26,7 +26,7 @@
         body h3 {
             font-weight: 300;
             margin-top: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             color: #555;
         }
 
@@ -36,11 +36,17 @@
         
         .topleft {
             float: left;
-            width: 50%;
+            width: 45%;
+            text-align: left;
         }
         .topright {
             float: right;
-            width: 50%;
+            width: 45%;
+            text-align: right;
+        }
+        
+        .topleft img {
+            width: 200px;
         }
 
         .invoice-box {
@@ -94,7 +100,7 @@
             font-weight: bold;
         }
 
-        td.title img {
+        td.title {
             width: 100%;
             max-width: 150px;
         }
@@ -199,8 +205,8 @@
                         <td>{{ forloop.counter }}</td>
                         <td>{{ line.description }}</td>
                         <td class="align-right">{{ line.quantity }}</td>
-                        <td class="align-right">{{ line.unit_price_excl_tax|currency:order.currency }}</td>
-                        <td class="align-right">{{ line.line_price_excl_tax|currency:order.currency }}</td>
+                        <td class="align-right">{{ line.unit_price_incl_tax|currency:order.currency }}</td>
+                        <td class="align-right">{{ line.line_price_incl_tax|currency:order.currency }}</td>
                     </tr>
                 {% endfor %}
             {% endblock %}
@@ -209,7 +215,7 @@
                 <tr class="total">
                     <td colspan="3"></td>
                     <td class="align-right">{% trans "Shipping charge" %}:</td>
-                    <td class="align-right">{{ order.shipping_excl_tax|currency:order.currency }}</td>
+                    <td class="align-right">{{ order.shipping_incl_tax|currency:order.currency }}</td>
                 </tr>
 
                 {% if order.basket_discounts %}
@@ -232,16 +238,18 @@
                     {% endfor %}
                 {% endif %}
 
+                <!--
                 <tr class="total">
                     <td colspan="3"></td>
                     <td class="align-right">{% trans "Order tax" %}:</td>
-                    <td class="align-right">{{ order.total_tax|currency:order.currency }}</td>
+                    <td class="align-right"> {# {{ order.total_tax|currency:order.currency }} #} </td>
                 </tr>
+                //-->
 
                 <tr class="total space-under">
                     <td colspan="3"></td>
                     <td class="align-right">{% trans "Order total" %}:</td>
-                    <td class="align-right">{{ order.total_incl_tax|currency:order.currency }}</td>
+                    <td class="align-right"><strong>{{ order.total_incl_tax|currency:order.currency }}</strong></td>
                 </tr>
             {% endblock %}
 
