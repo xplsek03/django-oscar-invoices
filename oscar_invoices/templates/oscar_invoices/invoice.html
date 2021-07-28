@@ -36,12 +36,18 @@
         
         .topleft {
             float: left;
-            width: 40%;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100%;
             text-align: left;
         }
         .topright {
+            top: 20px;
+            right: 20px;
+            position: absolute;
             float: right;
-            width: 40%;
+            width: 100%;
             text-align: right;
         }
         
@@ -135,7 +141,7 @@
                         <br>                        
                         {{ legal_entity.business_name }}
                         <br>
-                        {% trans "VAT ID" %}: {{ legal_entity.vat_number }}<br>
+                        {% trans "VAT ID" %}: {{ legal_entity.vat_number }}
                         <address>
                             {{ legal_entity_address.summary }}<br/>
                             {% if legal_entity_address.phone_number %}
