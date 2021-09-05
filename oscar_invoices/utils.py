@@ -69,7 +69,7 @@ class InvoiceCreator(object):
         logger.info('Created invoice %s for order #%s', kwargs['number'], order.number)
         return invoice
 
-    def create_invoice(self, order, send_email):
+    def create_invoice(self, order, send_email, **extra_kwargs):
         """
         To create `Invoice` instance, we should have at least one
         instance of `LegalEntity` with `LegalEntityAddress`.
