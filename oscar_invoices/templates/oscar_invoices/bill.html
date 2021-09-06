@@ -12,7 +12,7 @@
     <style>
 
         @page {
-            size: 80mm 300mm;
+            size: 80mm 350mm;
         }
 
         @font-face {
@@ -147,7 +147,7 @@
             <tr> 
                 <td class="centered">
                     {% trans "Factura ID" %}: <strong>#{{ invoice.number }}</strong><br>
-                    {% trans "Date" %}: <strong>{{ order.date_placed|date:'d.m.Y' }}</strong><br>
+                    {% trans "Date" %}: <strong>{{ order.date_placed|date:'d.m.Y H:i:s' }}</strong><br>
                 </td> 
             </tr>
 
@@ -198,13 +198,13 @@
 
 <table cellpadding="0" cellspacing="0">
 
-    <tr class="heading">
+    <tr>
         <td class="align-right">{% trans "IVA %" %}</td>
         <td class="align-right">{% trans "Base" %}</td>
         <td class="align-right">{% trans "Cuota" %}</td>
     </tr>
 
-    <tr class="heading">
+    <tr>
         <td class="align-right">21</td>
         <td class="align-right">{{ order.total_excl_tax|currency:order.currency }}</td>
         <td class="align-right">{{ total_tax|currency:order.currency }}</td>
