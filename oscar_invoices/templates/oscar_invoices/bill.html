@@ -31,10 +31,10 @@
 
         body {
             font-family: "arial";
-            font-size: 11px;
+            font-size: 12px;
             width: 8cm;
             text-align: center;
-            color: #777;
+            color: black;
         }
 
         .inside {
@@ -43,8 +43,12 @@
             float: left;
         }
 
+        .centered {
+            text-align: center;
+        }
+
         body a {
-            color: #009427;
+            color: #218a78;
         }
         
         strong, b {
@@ -56,6 +60,7 @@
             max-width: 8cm;
             line-height: inherit;
             text-align: left;
+            margin-bottom: 20px;
         }
 
         table td {
@@ -76,7 +81,7 @@
         }
 
         table tr.heading td {
-            background: #eee;
+            background: #f5f5f5;
             border-bottom: 1px solid #ddd;
             font-weight: bold;
             font-family: "arialbold";
@@ -110,14 +115,14 @@
     {% block header %}
             {% block legal_entity %}
             <tr>
-                <td>
+                <td class="centered">
                     {% if legal_entity.logo %}
                     <img src="{% if use_path %}file://{{ legal_entity.logo.path }}{% else %}{{ legal_entity.logo.url }}{% endif %}">
                     {% endif %}
                 </td>
             <tr>
             <tr>
-                <td>                        
+                <td class="centered">                        
                     {{ legal_entity.business_name }}
                     <br>
                     {% trans "CIF" %}: {{ legal_entity.vat_number }}
@@ -137,9 +142,9 @@
             </tr>
 
             <tr> 
-                <td>
-                    {% trans "Factura ID" %}: #{{ invoice.number }}<br>
-                    {% trans "Date" %}: {{ order.date_placed|date:'d.m.Y' }}<br>
+                <td class="centered">
+                    {% trans "Factura ID" %}: <strong>#{{ invoice.number }}</strong><br>
+                    {% trans "Date" %}: <strong>{{ order.date_placed|date:'d.m.Y' }}</strong><br>
                 </td> 
             </tr>
 
@@ -147,14 +152,12 @@
     {% endblock %}
     </table>
 
-<hr>
-
 <table cellpadding="0" cellspacing="0">
 
     <tr class="heading">
         <td>{% trans "Description" %}</td>
         <td class="align-right">{% trans "Quantity" %}</td>
-        <td class="align-right">{% trans "Unit price" %}</td>
+        <td class="align-right">{% trans "Unit" %}</td>
         <td class="align-right">{% trans "Total" %}</td>
     </tr>
 
@@ -174,7 +177,7 @@
         {% if order.basket_discounts %}
             {% for discount in order.basket_discounts %}
                 <tr class="total">
-                    <td colspan="3"></td>
+                    <td colspan="2"></td>
                     <td class="align-right">{% trans "Discount" %} <i>{{ discount.offer }}:</i></td>
                     <td class="align-right">- {{ discount.amount|currency:order.currency }}</td>
                 </tr>
@@ -182,13 +185,25 @@
         {% endif %}
 
         <tr class="total space-under">
-            <td colspan="3"></td>
-            <td class="align-right">{% trans "Order total" %}:</td>
+            <td colspan="2"></td>
+            <td class="align-right">{% trans "Total" %}:</td>
             <td class="align-right"><strong>{{ order.total_incl_tax|currency:order.currency }}</strong></td>
         </tr>
     {% endblock %}
 
 </table>
+
+<table cellpadding="0" cellspacing="0">
+    <tr>
+        <td class="centered">
+            ¡Gracias por tu compra!<br>
+            Para más información sobre nuestros productos y ofertas especiales, sigue nuestra cuenta de Instagram <a href="#"><strong>@doctorverde.es</strong></a><br>
+            ¡Gracias por elegir las soluciones curativas naturales de Doctor Verde!
+
+        </td>
+    </tr>
+</table>
+
 </div>
 
 </body>
