@@ -168,7 +168,7 @@
     {% block order_lines %}
         {% for line in order.lines.all %}
             <tr class="item{% if forloop.last %} last{% endif %}">
-                <td>{{ line.description }}</td>
+                <td style="font-size: 10px;">{{ line.description }}</td>
                 <td class="align-right">{{ line.quantity }}</td>
                 <td class="align-right">{{ line.unit_price_incl_tax|currency:order.currency }}</td>
                 <td class="align-right">{{ line.line_price_incl_tax|currency:order.currency }}</td>
