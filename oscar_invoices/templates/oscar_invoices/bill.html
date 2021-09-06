@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
-    <title>{% trans "Invoice" %}</title>
+    <title>{% trans "Bill" %}</title>
 
     <style>
 
@@ -21,284 +21,162 @@
            src: url('arialbold.ttf');
         }
         
+        * {
+            margin: 0; padding: 0;
+        }
+
         body {
             font-family: "arial";
+            font-size: 10px;
+            width: 8cm;
             text-align: center;
             color: #777;
-            background: red;
-        }
-
-        body h1 {
-            font-weight: bold;
-            font-family: "arialbold";
-            margin-bottom: 0px;
-            padding-bottom: 0px;
-            color: #000;
-            font-size: 15px;
-        }
-
-        body h3 {
-            font-weight: bold;
-            font-family: "arialbold";
-            font-size: 14px;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            color: #555;
         }
 
         body a {
-            color: #06F;
+            color: #009427;
         }
         
         strong, b {
             font-family: "arialbold";
         }
-        
-        .topleft {
-            text-align: left;
-        }
-        .topright {
-            text-align: right;
-        }
-        
-        .topleft img {
-            width: 200px;
-            margin-bottom: 10px;
-        }
 
-        .invoice-box {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-            font-size: 11px;
-            line-height: 13px;
-            color: #555;
-        }
-
-        .invoice-box table {
+        table {
             width: 100%;
             line-height: inherit;
             text-align: left;
         }
 
-        .invoice-box table td {
+        table td {
             padding: 4px;
             vertical-align: top;
         }
 
-        .invoice-box table tr td.align-right {
+        table tr td.align-right {
             text-align: right;
         }
 
-        .invoice-box table tr.top table td.title {
+        table tr.top table td.title {
             color: #333;
         }
 
-        .invoice-box table tr.information table td {
+        table tr.information table td {
             padding-bottom: 5px;
         }
 
-        .invoice-box table tr.heading td {
+        table tr.heading td {
             background: #eee;
             border-bottom: 1px solid #ddd;
             font-weight: bold;
             font-family: "arialbold";
         }
 
-        .invoice-box table tr.item td {
+        table tr.item td {
             border-bottom: 1px solid #eee;
         }
 
-        .invoice-box table tr.item.last td {
+        table tr.item.last td {
             border-bottom: none;
         }
 
-        .invoice-box table tr.total td:nth-child(3) {
+        table tr.total td:nth-child(3) {
             border-top: 2px solid #eee;
             font-weight: bold;
             font-family: "arialbold";
         }
-
-        td.title {
-            width: 100%;
-            max-width: 150px;
-        }
         
         hr {
             border-top: 1px solid #ddd;
-            margin: 10px auto;
+            margin: 5px auto;
         }
         
     </style>
 </head>
 
 <body>
-    <div class="invoice-box">
-            <table cellpadding="0" cellspacing="0">
-            {% block header %}
-                    <tr>
-                    
-                    <td class="topleft">
-                    
-                    {% block legal_entity %}
-                    
-                        {% if legal_entity.logo %}
-                            <img src="{% if use_path %}file://{{ legal_entity.logo.path }}{% else %}{{ legal_entity.logo.url }}{% endif %}">
-                        {% else %}
-                            {{ legal_entity.shop_name }}
+    <table cellpadding="0" cellspacing="0">
+    {% block header %}
+            {% block legal_entity %}
+            <tr>
+                <td>
+                    {% if legal_entity.logo %}
+                    <img src="{% if use_path %}file://{{ legal_entity.logo.path }}{% else %}{{ legal_entity.logo.url }}{% endif %}">
+                    {% endif %}
+                </td>
+            <tr>
+            <tr>
+                <td>                        
+                    {{ legal_entity.business_name }}
+                    <br>
+                    {% trans "CIF" %}: {{ legal_entity.vat_number }}
+                    <address>
+                        {{ legal_entity_address.summary }}<br/>
+                        {% if legal_entity_address.phone_number %}
+                            {% trans "Tel" %}: {{ legal_entity_address.phone_number }}<br/>
                         {% endif %}
-                        <br>                        
-                        {{ legal_entity.business_name }}
-                        <br>
-                        {% trans "VAT ID" %}: {{ legal_entity.vat_number }}
-                        <address>
-                            {{ legal_entity_address.summary }}<br/>
-                            {% if legal_entity_address.phone_number %}
-                                {% trans "Tel" %}: {{ legal_entity_address.phone_number }}<br/>
-                            {% endif %}
-                            {% if legal_entity_address.fax_number %}
-                                {% trans "Fax" %}: {{ legal_entity_address.fax_number }}<br/>
-                            {% endif %}
-                            {% if legal_entity_address.email %}
-                                {% trans "Email" %}: {{ legal_entity_address.email }}<br/>
-                            {% endif %}
-                            {% if legal_entity_address.web_site %}
-                                {% trans "Site" %}: {{ legal_entity_address.web_site }}<br/>
-                            {% endif %}
-                        </address>        
-                        </td>
- 
-                    <td class="topright">
-                        <h1>{% trans "Original invoice" %} #{{ invoice.number }}</h1><br>
-                        {% trans "Order" %} #{{ order.number }}<br>
-                        {% trans "Date" %}: {{ order.date_placed|date:'d.m.Y' }}<br>
-                    </td>
-                        
-                    </tr>
-                    {% endblock %}
-                    
-                 
-
-            {% endblock %}
-            </table>
-
-        <hr>
-
-        <table cellpadding="0" cellspacing="0">
-
-            {% block addresses %}
-                <tr class="information">
-                    <td colspan="5">
-                        <table>
-                            <tr>
-                                <td>
-                                    <h3><strong>{% trans "Shipping address" %}:</strong></h3>
-                                    <address>
-                                        {% for field in order.shipping_address.active_address_fields %}
-                                            {{ field }}<br/>
-                                        {% endfor %}
-                                    </address>
-                                </td>
-                                {% if order.billing_address %}
-                                    <td>
-                                        <h3><strong>{% trans "Billing address" %}:</strong></h3>
-                                        <address>
-                                            {% for field in order.billing_address.active_address_fields %}
-                                                {{ field }}<br/>
-                                            {% endfor %}
-                                        </address>
-                                    </td>
-                                {% endif %}
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            {% endblock %}
-
-            <tr class="heading">
-                <td>#</td>
-                <td>{% trans "Description" %}</td>
-                <td class="align-right">{% trans "Quantity" %}</td>
-                <td class="align-right">{% trans "Unit price" %}</td>
-                <td class="align-right">{% trans "Total" %}</td>
+                        {% if legal_entity_address.email %}
+                            {% trans "Email" %}: {{ legal_entity_address.email }}<br/>
+                        {% endif %}
+                        {% if legal_entity_address.web_site %}
+                            {% trans "WWW" %}: {{ legal_entity_address.web_site }}<br/>
+                        {% endif %}
+                    </address>        
+                </td>
             </tr>
 
-            {% block order_lines %}
-                {% for line in order.lines.all %}
-                    <tr class="item{% if forloop.last %} last{% endif %}">
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ line.description }}</td>
-                        <td class="align-right">{{ line.quantity }}</td>
-                        <td class="align-right">{{ line.unit_price_incl_tax|currency:order.currency }}</td>
-                        <td class="align-right">{{ line.line_price_incl_tax|currency:order.currency }}</td>
-                    </tr>
-                {% endfor %}
-            {% endblock %}
+            <tr> 
+                <td>
+                    {% trans "Factura ID" %}: #{{ invoice.number }}<br>
+                    {% trans "Date" %}: {{ order.date_placed|date:'d.m.Y' }}<br>
+                </td> 
+            </tr>
 
-            {% block order_totals %}
+            {% endblock %}
+    {% endblock %}
+    </table>
+
+<hr>
+
+<table cellpadding="0" cellspacing="0">
+
+    <tr class="heading">
+        <td>{% trans "Description" %}</td>
+        <td class="align-right">{% trans "Quantity" %}</td>
+        <td class="align-right">{% trans "Unit price" %}</td>
+        <td class="align-right">{% trans "Total" %}</td>
+    </tr>
+
+    {% block order_lines %}
+        {% for line in order.lines.all %}
+            <tr class="item{% if forloop.last %} last{% endif %}">
+                <td>{{ line.description }}</td>
+                <td class="align-right">{{ line.quantity }}</td>
+                <td class="align-right">{{ line.unit_price_incl_tax|currency:order.currency }}</td>
+                <td class="align-right">{{ line.line_price_incl_tax|currency:order.currency }}</td>
+            </tr>
+        {% endfor %}
+    {% endblock %}
+
+    {% block order_totals %}
+
+        {% if order.basket_discounts %}
+            {% for discount in order.basket_discounts %}
                 <tr class="total">
                     <td colspan="3"></td>
-                    <td class="align-right">{% trans "Shipping charge" %}:</td>
-                    <td class="align-right">{{ order.shipping_incl_tax|currency:order.currency }}</td>
+                    <td class="align-right">{% trans "Discount" %} <i>{{ discount.offer }}:</i></td>
+                    <td class="align-right">- {{ discount.amount|currency:order.currency }}</td>
                 </tr>
+            {% endfor %}
+        {% endif %}
 
-                {% if order.basket_discounts %}
-                    {% for discount in order.basket_discounts %}
-                        <tr class="total">
-                            <td colspan="3"></td>
-                            <td class="align-right">{% trans "Discount" %} <i>{{ discount.offer }}:</i></td>
-                            <td class="align-right">- {{ discount.amount|currency:order.currency }}</td>
-                        </tr>
-                    {% endfor %}
-                {% endif %}
+        <tr class="total space-under">
+            <td colspan="3"></td>
+            <td class="align-right">{% trans "Order total" %}:</td>
+            <td class="align-right"><strong>{{ order.total_incl_tax|currency:order.currency }}</strong></td>
+        </tr>
+    {% endblock %}
 
-                {% if order.has_shipping_discounts %}
-                    {% for discount in order.shipping_discounts %}
-                        <tr class="total">
-                            <td colspan="3"></td>
-                            <td class="align-right">{% trans "Discount" %} <i>{{ discount.offer }}:</i></td>
-                            <td class="align-right">- {{ discount.amount|currency:order.currency }}</td>
-                        </tr>
-                    {% endfor %}
-                {% endif %}
-
-                <!--
-                <tr class="total">
-                    <td colspan="3"></td>
-                    <td class="align-right">{% trans "Order tax" %}:</td>
-                    <td class="align-right"> {# {{ order.total_tax|currency:order.currency }} #} </td>
-                </tr>
-                //-->
-
-                <tr class="total space-under">
-                    <td colspan="3"></td>
-                    <td class="align-right">{% trans "Order total" %}:</td>
-                    <td class="align-right"><strong>{{ order.total_incl_tax|currency:order.currency }}</strong></td>
-                </tr>
-            {% endblock %}
-
-            {% block terms_and_conditions %}
-                {% if terms_and_conditions %}
-                <tr class="information">
-                    <td colspan="5">
-                        <h3>{% trans "Terms and conditions" %}:</h3>
-                        {{ terms_and_conditions }}
-                    </td>
-                </tr>
-                {% endif %}
-            {% endblock %}
-
-            {% block additional_data %}
-                {% if additional_data %}
-                <tr class="information">
-                    <td colspan="5">
-                        <h3>{% trans "Notes" %}:</h3>
-                        {{ additional_data }}
-                    </td>
-                </tr>
-                {% endif %}
-            {% endblock %}
-        </table>
-    </div>
+</table>
+        
 </body>
 </html>
