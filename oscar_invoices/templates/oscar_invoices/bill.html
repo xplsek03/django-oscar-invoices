@@ -12,7 +12,7 @@
     <style>
 
         @page {
-            size: 80mm 750mm;
+            size: 8mm 750mm;
         }
 
         @font-face {
@@ -209,6 +209,25 @@
 </table>
 
 </div>
+
+<script type="text/javascript">
+
+    var cssPagedMedia = (function () {
+        var style = document.createElement('style');
+        document.head.appendChild(style);
+        return function (rule) {
+            style.innerHTML = rule;
+        };
+    }());
+
+    cssPagedMedia.size = function (size) {
+        cssPagedMedia('@page {size: ' + size + '}');
+    };
+
+    // vypocitej velikost
+    cssPagedMedia.size( '80mm ' + document.body.scrollHeight );
+
+</script>
 
 </body>
 </html>
