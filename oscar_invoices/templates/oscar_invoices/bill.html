@@ -207,13 +207,13 @@
     <tr class="heading">
         <td class="align-right">21</td>
         <td class="align-right">{{ order.total_excl_tax|currency:order.currency }}</td>
-        <td class="align-right">{{ order.total_incl_tax-order.total_excl_tax|currency:order.currency }}</td>
+        <td class="align-right">{{ total_tax|currency:order.currency }}</td>
     </tr>
 
     <tr class="total space-under">
         <td colspan="1"></td>
         <td class="align-right">{% trans "Total IVA" %}:</td>
-        <td class="align-right"><strong>{{ order.total_incl_tax-order.total_excl_tax|currency:order.currency }}</strong></td>
+        <td class="align-right"><strong>{{ total_tax|currency:order.currency }}</strong></td>
     </tr>
     {% endblock %}
 
