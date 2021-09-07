@@ -171,7 +171,7 @@
                 <td style="font-size: 10px;">{{ line.description }}</td>
                 <td class="align-right">{{ line.quantity }}</td>
                 <td class="align-right">{{ line.unit_price_incl_tax|currency:order.currency }}</td>
-                <td class="align-right">{{ line.line_price_incl_tax|currency:order.currency }}</td>
+                <td class="align-right">{{ line.line_price_before_discounts_incl_tax|currency:order.currency }}</td>
             </tr>
         {% endfor %}
     {% endblock %}
@@ -181,8 +181,7 @@
         {% if order.basket_discounts %}
             {% for discount in order.basket_discounts %}
                 <tr class="total">
-                    <td colspan="2"></td>
-                    <td class="align-right">{% trans "Discount" %} <i>{{ discount.offer }}:</i></td>
+                    <td class="align-right" colspan="3" style="font-size: 10px;">{% trans "Discount" %} <i>{{ discount.offer }}:</i></td>
                     <td class="align-right">- {{ discount.amount|currency:order.currency }}</td>
                 </tr>
             {% endfor %}
