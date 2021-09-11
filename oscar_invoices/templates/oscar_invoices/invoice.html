@@ -168,9 +168,9 @@
                         </td>
  
                     <td class="topright">
-                        <h1>{% trans "Original invoice" %} #{{ invoice.number }}</h1><br>
+                        <h1>{% trans "Factura original" %} #{{ invoice.number }}</h1><br>
                         {% trans "Order" %} #{{ order.number }}<br>
-                        {% trans "Date" %}: {{ order.date_placed|date:'d.m.Y' }}<br>
+                        {% trans "Date" %}: {{ order.date_placed|date:'d.m.Y H:i:s' }}<br>
                     </td>
                         
                     </tr>
