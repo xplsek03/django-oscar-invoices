@@ -37,7 +37,6 @@
         body {
             font-family: "arial";
             font-size: 12px;
-            text-align: center;
             color: black;
         }
 
@@ -45,6 +44,7 @@
             width: 690px;
             max-width: 690px;
             margin: 50px;
+            text-align: center;
             float: left;
         }
 
@@ -64,6 +64,8 @@
 
         table {
             width: 690px;
+            max-width: 690px;
+            overflow: hidden;
             line-height: inherit;
             text-align: left;
             margin-bottom: 20px;
@@ -74,13 +76,13 @@
         }
         
         table.spec td.forty {
-        width: 45%;
+        width: 310px;
         }
         table.spec td.ten {
-        width: 10%;
+        width: 69px;
         }
         table.spec td.twenty {
-        width: 22.5%;
+        width: 155px;
         }
 
         table td {
@@ -99,14 +101,8 @@
         table tr.information table td {
             padding-bottom: 5px;
         }
-
-        table.taxs {
-        width: 670px;
-        margin: 10px;
-        }
         
         table.taxs td {
-        padding: 2px !important;
         color: #2b2b2b !important;
         }
 
@@ -141,7 +137,7 @@
 
 <body>
     <div class="inside">
-    <table cellpadding="0" cellspacing="0">
+    <table style="width: 690px; max-width: 690px;" cellpadding="0" cellspacing="0">
     {% block header %}
             {% block legal_entity %}
             <tr>
@@ -223,37 +219,29 @@
 
 </table>
 
-<table class="taxs" cellpadding="0" cellspacing="0">
+<table class="taxs spec" cellpadding="0" cellspacing="0">
 
     <tr>
-        <td class="align-right">{% trans "IVA %" %}</td>
-        <td class="align-right">{% trans "Base" %}</td>
-        <td class="align-right">{% trans "Cuota" %}</td>
+        <td class="forty"></td>
+        <td class="align-right ten">{% trans "IVA %" %}</td>
+        <td class="align-right twenty">{% trans "Base" %}</td>
+        <td class="align-right twenty">{% trans "Cuota" %}</td>
     </tr>
 
     <tr>
-        <td class="align-right">21</td>
-        <td class="align-right">{{ order.total_excl_tax|currency:order.currency }}</td>
-        <td class="align-right">{{ total_tax|currency:order.currency }}</td>
+        <td class="forty"></td>
+        <td class="align-right ten">21</td>
+        <td class="align-right twenty">{{ order.total_excl_tax|currency:order.currency }}</td>
+        <td class="align-right twenty">{{ total_tax|currency:order.currency }}</td>
     </tr>
 
     <tr class="total space-under">
-        <td colspan="1"></td>
-        <td class="align-right">{% trans "Total IVA" %}:</td>
-        <td class="align-right">{{ total_tax|currency:order.currency }}</td>
+        <td class="forty"></td>
+        <td class="ten"></td>
+        <td class="align-right twenty">{% trans "Total IVA" %}:</td>
+        <td class="align-right twenty">{{ total_tax|currency:order.currency }}</td>
     </tr>
 
-</table>
-
-<table cellpadding="0" cellspacing="0">
-    <tr>
-        <td class="centered">
-            ¡Gracias por tu compra!<br>
-            Para más información sobre nuestros productos y ofertas especiales, sigue nuestra cuenta de Instagram <a href="#"><strong>@doctorverde.es</strong></a><br>
-            ¡Gracias por elegir las soluciones curativas naturales de Doctor Verde!
-
-        </td>
-    </tr>
 </table>
 
 </div>
