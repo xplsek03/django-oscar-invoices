@@ -200,7 +200,7 @@
     {% block order_lines %}
         {% for line in order.lines.all %}
             <tr class="item{% if forloop.last %} last{% endif %}">
-                <td style="font-size: 10px;" class="forty">{{ line.description }}</td>
+                <td style="font-size: 17px;" class="forty">{{ line.description }}</td>
                 <td class="align-right ten">{{ line.quantity }}</td>
                 <td class="align-right twenty">{{ line.unit_price_incl_tax|currency:order.currency }}</td>
                 <td class="align-right twenty">{{ line.line_price_before_discounts_incl_tax|currency:order.currency }}</td>
