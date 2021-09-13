@@ -104,6 +104,7 @@
         
         table.taxs td {
         color: #2b2b2b !important;
+        fonr-style: italic !important;
         }
 
         table tr.heading td {
@@ -231,14 +232,14 @@
 
     <tr>
         <td class="forty"></td>
-        <td class="align-right ten">{% trans "IVA %" %}</td>
+        <td class="align-right ten">{% trans "IVA" %}</td>
         <td class="align-right twenty">{% trans "Base" %}</td>
         <td class="align-right twenty">{% trans "Cuota" %}</td>
     </tr>
 
     <tr>
         <td class="forty"></td>
-        <td class="align-right ten">21</td>
+        <td class="align-right ten">21%</td>
         <td class="align-right twenty">{{ order.total_excl_tax|currency:order.currency }}</td>
         <td class="align-right twenty">{{ total_tax|currency:order.currency }}</td>
     </tr>
@@ -246,7 +247,7 @@
     <tr class="total space-under">
         <td class="forty"></td>
         <td class="ten"></td>
-        <td class="align-right twenty">{% trans "Total IVA" %}:</td>
+        <td class="align-right twenty">{% trans "Total" %}:</td>
         <td class="align-right twenty">{{ total_tax|currency:order.currency }}</td>
     </tr>
 
