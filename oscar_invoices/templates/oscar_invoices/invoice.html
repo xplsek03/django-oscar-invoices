@@ -128,22 +128,16 @@
             margin: 10px auto;
         }
         
-        .taxs {
+        .invoice-box .taxs {
             border: 1px solid #eee;
             margin-top: 100px;
-            float: left;
-            width: 50%;
+            width: 300px;
         }
-
-        .taxs .liner {
-            float: left;
-            width: 100%;
+        .invoice-box .taxs tr {
+            width: 300px;
         }
-
-        .taxs .liner > div {
-            width: 25%;
-            float: left;
-            padding: 2px;
+        .invoice-box .taxs tr td {
+            width: 75px;
         }
         
     </style>
@@ -318,28 +312,24 @@
             
         </table>
         
-        <div class="taxs">
-            <div class="liner">
-                <div></div>
-                <div>{% trans "IVA" %}</div>
-                <div>{% trans "Base" %}</div>
-                <div>{% trans "Cuota" %}</div>
-            </div>
+        <table class="taxs" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>{% trans "IVA" %}</td>
+                <td>{% trans "Base" %}</td>
+                <td>{% trans "Cuota" %}</td>
+            </tr>
 
-            <div class="liner">
-                <div></div>
-                <div>21%</div>
-                <div>{{ order.total_excl_tax|currency:order.currency }}</div>
-                <div>{{ total_tax|currency:order.currency }}</div>
-            </div>
+            <tr>
+                <td>21%</td>
+                <td>{{ order.total_excl_tax|currency:order.currency }}</td>
+                <td>{{ total_tax|currency:order.currency }}</td>
+            </tr>
 
-            <div class="liner">
-                <div></div>
-                <div></div>
-                <div>{% trans "Total" %}:</div>
-                <div>{{ total_tax|currency:order.currency }}</div>
-            </div>
-        </div>
+            <tr>
+                <td colspan="2">{% trans "Total" %}:</td>
+                <td>{{ total_tax|currency:order.currency }}</td>
+            </tr>
+        </table>
         
     </div>
 </body>
