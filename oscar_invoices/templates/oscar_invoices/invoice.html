@@ -128,6 +128,10 @@
             margin: 10px auto;
         }
         
+        .taxs {
+        width: 50%;
+        }
+        
     </style>
 </head>
 
@@ -276,6 +280,25 @@
                 </tr>
             {% endblock %}
 
+            <table class="taxs" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td colspan="2" class="align-right">{% trans "IVA" %}</td>
+                    <td class="align-right">{% trans "Base" %}</td>
+                    <td class="align-right">{% trans "Cuota" %}</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" class="align-right">21%</td>
+                    <td class="align-right">{{ order.total_excl_tax|currency:order.currency }}</td>
+                    <td class="align-right">{{ total_tax|currency:order.currency }}</td>
+                </tr>
+
+                <tr class="total space-under">
+                    <td colspan="3" class="align-right twenty">{% trans "Total" %}:</td>
+                    <td class="align-right twenty">{{ total_tax|currency:order.currency }}</td>
+                </tr>
+            </table>
+            
             {% block terms_and_conditions %}
                 {% if terms_and_conditions %}
                 <tr class="information">
