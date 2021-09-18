@@ -321,13 +321,13 @@
 
             <tr>
                 <td>21%</td>
-                <td>{{ order.total_excl_tax|currency:order.currency }}</td>
-                <td>{{ total_tax|currency:order.currency }}</td>
+                <td>{{ order.total_excl_tax_excl_shipping|currency:order.currency }}</td>
+                <td>{{ order.total_tax|currency:order.currency }}</td>
             </tr>
 
             <tr>
                 <td colspan="2">{% trans "Total" %}:</td>
-                <td>{{ total_tax|currency:order.currency }}</td>
+                <td>{{ order.total_tax|currency:order.currency }}</td>
             </tr>
         </table>
         
