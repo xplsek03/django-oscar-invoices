@@ -182,6 +182,7 @@
 
             <tr> 
                 <td class="centered">
+                    {% trans "Commande ID" %}: <strong>#{{ order.number }}</strong><br>
                     {% trans "Factura ID" %}: <strong>#{{ invoice.number }}</strong><br>
                     {% trans "Date" %}: <strong>{{ order.date_placed|date:'d.m.Y H:i:s' }}</strong><br>
                 </td> 
