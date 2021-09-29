@@ -238,8 +238,7 @@
                     <tr class="item{% if forloop.last %} last{% endif %}">
                         <td>{{ forloop.counter }}</td>
                         <td>{{ line.description }}</td>
-                        <td class="align-right">{{ qty }}</td>
-
+                        <td class="align-right">x{{ qty }}</td>
                         <!-- tady by mela byt cena vydelena puvodnim poctem kusu a nasobena qty //-->
                         <td class="align-right">{{ line.prices.price_incl_tax|currency:order.currency }}</td>
                     </tr>
