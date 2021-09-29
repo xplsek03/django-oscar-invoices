@@ -76,7 +76,8 @@ class AbstractInvoice(models.Model):
     number = models.CharField(
         _('Invoice number'), max_length=128, unique=True)
 
-    order = models.OneToOneField(
+    #order = models.OneToOneField(
+    order = models.ForeignKey(
         'order.Order', verbose_name=_('Order'), related_name='invoice',
         null=True, blank=True, on_delete=models.SET_NULL)
 
