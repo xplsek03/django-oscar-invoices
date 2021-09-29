@@ -198,37 +198,39 @@
         <table cellpadding="0" cellspacing="0">
 
             {% block addresses %}
-                <tr class="information">
-                    <td colspan="5">
-                        <table>
-                            <tr>
-                                <td>
-                                    <h3><strong>{% trans "Shipping address" %}:</strong></h3>
-                                    <address>
-                                        {% for field in order.shipping_address.active_address_fields %}
-                                            {{ field }}<br/>
-                                        {% endfor %}
-                                    </address>
-                                </td>
-                                {% if order.billing_address %}
+                {% if order.shipping_address %}
+                    <tr class="information">
+                        <td colspan="5">
+                            <table>
+                                <tr>
                                     <td>
-                                        <h3><strong>{% trans "Billing address" %}:</strong></h3>
+                                        <h3><strong>{% trans "Shipping address" %}:</strong></h3>
                                         <address>
-                                            {% for field in order.billing_address.active_address_fields %}
+                                            {% for field in order.shipping_address.active_address_fields %}
                                                 {{ field }}<br/>
                                             {% endfor %}
                                         </address>
                                     </td>
-                                {% endif %}
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
+                                    {% if order.billing_address %}
+                                        <td>
+                                            <h3><strong>{% trans "Billing address" %}:</strong></h3>
+                                            <address>
+                                                {% for field in order.billing_address.active_address_fields %}
+                                                    {{ field }}<br/>
+                                                {% endfor %}
+                                            </address>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                {% endif %}
             {% endblock %}
 
             <tr class="heading">
                 <td>#</td>
-                <td>{% trans "Description" %}</td>
+                <td colspan="2">{% trans "Description" %}</td>
                 <td class="align-right">{% trans "Quantity" %}</td>
                 <td class="align-right">{% trans "Total" %}</td>
             </tr>
@@ -237,7 +239,7 @@
                 {% for line,qty,line_price in zipped_lines %}
                     <tr class="item{% if forloop.last %} last{% endif %}">
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ line.description }}</td>
+                        <td colspan="2">{{ line.description }}</td>
                         <td class="align-right">{{ qty }}</td>
                         <td class="align-right">{{ line_price|currency:order.currency }}</td>
                     </tr>
@@ -246,8 +248,8 @@
 
             {% block order_totals %}
                 <tr class="total space-under">
-                    <td colspan="2"></td>
-                    <td class="align-right">{% trans "Order total" %}:</td>
+                    <td colspan="3"></td>
+                    <td class="align-right">{% trans "Cantidad reembolsada" %}:</td>
                     <td class="align-right"><strong>{{ refunding_total|currency:order.currency }}</strong></td>
                 </tr>
             {% endblock %}
