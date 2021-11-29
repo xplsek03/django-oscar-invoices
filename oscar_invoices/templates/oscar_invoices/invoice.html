@@ -254,6 +254,13 @@
                 </tr>
 
                 {% if order.basket_discounts %}
+            
+                <tr class="total">
+                    <td colspan="3"></td>
+                    <td class="align-right">{% trans "Total" %}:</td>
+                    <td class="align-right">{{ order.basket_total_before_discounts_incl_tax|currency:order.currency }}</td>                    
+                </tr>
+            
                     {% for discount in order.basket_discounts %}
                         <tr class="total">
                             <td colspan="3"></td>
