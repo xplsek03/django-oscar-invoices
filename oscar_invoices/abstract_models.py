@@ -79,7 +79,7 @@ class AbstractInvoice(models.Model):
     #order = models.OneToOneField(
     order = models.ForeignKey(
         'order.Order', verbose_name=_('Order'), related_name='invoice',
-        null=True, blank=True, on_delete=models.SET_NULL)
+        null=True, blank=True, on_delete=models.CASCADE)
 
     notes = models.TextField(_('Notes for invoice'), null=True, blank=False)
 
