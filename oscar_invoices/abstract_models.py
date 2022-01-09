@@ -67,6 +67,17 @@ class AbstractInvoice(models.Model):
     An Invoice.
     """
 
+    DOCTYPES = [
+        ('R', 'refund'),
+        ('B', 'bill'),
+        ('I', 'invoice'),
+    ]
+    document_type = models.CharField(
+        max_length=1,
+        choices=DOCTYPES,
+        default='I',
+    )
+    
     legal_entity = models.ForeignKey(
         'oscar_invoices.LegalEntity',
         on_delete=models.CASCADE,
